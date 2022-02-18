@@ -1,10 +1,10 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const {handleError, notFound} = require('./middleware/errorMiddleware');
-const connectDb = require('./config/db');
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const { handleError, notFound } = require("./middleware/errorMiddleware");
+const connectDb = require("./config/db");
 
 // port number
 const PORT = process.env.PORT || 5000;
@@ -25,13 +25,20 @@ app.use(helmet());
 app.use(cors());
 
 // log all requests to the console
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.use('/v1/user', require('./routes/userRoutes'));
+app.get("/", (req, res) => {
+  res.json({
+    responseMsg: "APIs are running successfully",
+    responseStatus: 1,
+  });
+});
+
+app.use("/v1/user", require("./routes/userRoutes"));
 
 // Handle errors
 app.use(handleError);
