@@ -23,11 +23,6 @@ const validateLoginData = [
     .withMessage("Password must be at least 6 characters long!"),
 ];
 
-const validateUserData = [
-  check("otp").trim().not().isEmpty().withMessage("OTP is required!"),
-  check("userId").not().isEmpty().withMessage("User Id is required!"),
-];
-
 const validate = (req, res, next) => {
   const errors = validationResult(req).array();
 
@@ -40,6 +35,5 @@ const validate = (req, res, next) => {
 module.exports = {
   validateRegisterData,
   validateLoginData,
-  validateUserData,
   validate,
 };

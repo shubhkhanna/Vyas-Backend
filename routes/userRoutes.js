@@ -4,19 +4,18 @@ const {
   registerUser,
   loginUser,
   getUserProfile,
-  verifyUser,
+  addUserPreferences,
 } = require("../controllers/userController");
 const authMiddleware = require("../middleware/authMiddleware");
 const {
   validateRegisterData,
   validateLoginData,
   validate,
-  validateUserData,
 } = require("../middleware/userMiddleware");
 
 router.route("/register").post(validateRegisterData, validate, registerUser);
 router.route("/login").post(validateLoginData, validate, loginUser);
 router.route("/profile").get(authMiddleware, getUserProfile);
-router.route("/verify").post(validateUserData, validate, verifyUser);
+router.route("/preferences").post(authMiddleware, addUserPreferences);
 
 module.exports = router;
