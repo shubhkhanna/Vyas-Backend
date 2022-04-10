@@ -6,7 +6,7 @@ const {
   getUserProfile,
   addUserPreferences,
 } = require("../controllers/userController");
-const authMiddleware = require("../middleware/authMiddleware");
+const { authMiddleware } = require("../middleware/authMiddleware");
 const {
   validateRegisterData,
   validateLoginData,
