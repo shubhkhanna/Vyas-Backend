@@ -39,6 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/v1/user", require("./routes/userRoutes"));
+app.use("/v1/courses", require("./routes/courseRoutes"));
 
 // Handle errors
 app.use(handleError);

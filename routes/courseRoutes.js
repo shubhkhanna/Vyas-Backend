@@ -3,6 +3,8 @@ const {
   getAllCourses,
   getCourseById,
   createCourse,
+  enrollInCourse,
+  getAllEnrolledCourses,
 } = require("../controllers/courseController");
 const {
   authMiddleware,
@@ -10,8 +12,12 @@ const {
 } = require("../middleware/authMiddleware");
 const router = express.Router();
 
-router.route("/").get(getAllCourses);
+router
+  .route("/")
+  .get(getAllCourses)
+  .post(authMiddleware, adminMiddleware, createCourse);
 router.route("/:id").get(getCourseById);
-router.route("/create").post(authMiddleware, adminMiddleware, createCourse);
+router.route("/enroll").get(authMiddleware, getAllEnrolledCourses);
+router.route("/enroll/:id").post(authMiddleware, enrollInCourse);
 
 module.exports = router;
