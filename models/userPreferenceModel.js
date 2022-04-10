@@ -7,18 +7,24 @@ const UserPreferenceSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    questionAnswer: [
-      {
-        question: {
-          type: String,
-          required: true,
-        },
-        answer: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    age: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      lowercase: true,
+    },
+    fieldOfStudy: {
+      type: String,
+      required: true,
+      lowercase: true,
+    },
+    timeDuration: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

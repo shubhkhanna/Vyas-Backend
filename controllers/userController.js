@@ -71,7 +71,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route GET /v1/user/profile
 // @access PRIVATE
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.userId).select("-password");
+  const user = await User.findById(req.user._id);
 
   if (!user) {
     res.status(404);
@@ -93,15 +93,15 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route POST /v1/user/preferences
 // @access PRIVATE
 const addUserPreferences = asyncHandler(async (req, res) => {
-  const { preferences } = req.body;
+  const { age, status, fieldOfStudy, timeDuration } = req.body;
 
   // Check if user id is not valid
-  if (!isValidObjectId(req.user.userId)) {
+  if (!isValidObjectId(req.user._id)) {
     res.status(400);
     throw new Error("Invalid User Id!");
   }
 
-  const user = await User.findById(req.user.userId);
+  const user = await User.findById(req.user._id);
 
   // If User Does Not Exist
   if (!user) {
@@ -112,7 +112,10 @@ const addUserPreferences = asyncHandler(async (req, res) => {
   // Add Preferences to User
   const userPreference = new UserPreference({
     userId: user._id,
-    preferences,
+    age,
+    status,
+    fieldOfStudy,
+    timeDuration,
   });
 
   await userPreference.save();
